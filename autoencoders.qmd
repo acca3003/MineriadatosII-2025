@@ -2,21 +2,13 @@
 
 ### Bases del Autoencoder
 
-Los **Autoencoders (AE)** son uno de los tipos de redes neuronales que caen dentro del ámbito del Deep Learning, en la que nos encontramos con un modelo de **aprendizaje no supervisado**. Ya se empezó a hablar de AE en la década de los 80 (Bourlard and Kamp 1988), aunque es en estos últimos años donde más se está trabajando con ellos.
+Los **Autoencoders (AE)** son uno de los tipos de redes neuronales que caen dentro del ámbito del Deep Learning, en la que nos encontramos con un modelo de **aprendizaje no supervisado**. Ya se empezó a hablar de AE en la década de los 80 [@bourlandautoassociation], aunque es en estos últimos años donde más se está trabajando con ellos.
 
-La arquitectura de un AE es una Red Neuronal Artificial (ANN por sus siglas en inglés) que se encuentra dividida en dos partes, **encoder** y **decoder** (Charte et al. 2018), (Goodfellow, Bengio, and Courville 2016). El encoder va a ser la parte de la ANN que va codificar o comprimir los datos de entrada, y el decoder será el encargado de regenerar de nuevo los datos en la salida. Esta estructura de codificación y decodificación le llevará a tener una estructura simétrica. El AE es entrenado para ser capaz de reconstruir los datos de entrada en la capa de salida de la ANN, implementando una serie de restricciones (la reducción de elementos en las capas ocultas del encoder) que van a evitar que simplemente se copie la entrada en la salida.
+La arquitectura de un AE es una Red Neuronal Artificial que se encuentra dividida en dos partes, **encoder** y **decoder** [@Charte_2018], [@Goodfellow-et-al-2016Goodfellow-et-al-2016]. El **encoder** va a ser la parte de que va **codificar** o comprimir los datos de entrada, y el **decoder** será el encargado de **regenerar** de nuevo los datos en la salida. Esta estructura de codificación y decodificación normalmente le llevará a tener una estructura simétrica. El **AE** es entrenado para ser capaz de **reconstruir** los **datos** de **entrada** en la capa de salida, implementando una serie de **restricciones** (la reducción de elementos en las capas ocultas del encoder) que van a evitar que simplemente se copie la entrada en la salida.
 
 Si recordamos la estructura de una ANN clásica o también llamada **Red Neuronal Densamente** **Conectada** (ya que cada neurona conecta con todas las de la siguiente capa) nos encontramos en que en esta arquitectura, generalmente, el número de neuronas por capa se va reduciendo hasta llegar a la capa de salida que debería ser normalmente un número (si estamos en un problema regresión), un dato binario (si es un problema de clasificación).
 
 ![Red Neuronal Clasica](imagenes/capitulo1/Redneuronal.png){#fig-redneuronal}
-
-Ya se empezó a hablar de AE en la década de los 80 (Bourlard and Kamp 1988), aunque es en estos últimos años donde más se está trabajando con ellos.
-
-La arquitectura de un AE es una Red Neuronal Artificial (ANN por sus siglas en inglés) que se encuentra dividida en dos partes, **encoder** y **decoder** (Charte et al. 2018), (Goodfellow, Bengio, and Courville 2016). El encoder va a ser la parte de la ANN que va codificar o comprimir los datos de entrada, y el decoder será el encargado de regenerar de nuevo los datos en la salida. Esta estructura de codificación y decodificación le llevará a tener una estructura simétrica. El AE es entrenado para ser capaz de reconstruir los datos de entrada en la capa de salida de la ANN, implementando una serie de restricciones (la reducción de elementos en las capas ocultas del encoder) que van a evitar que simplemente se copie la entrada en la salida.
-
-Si recordamos la estructura de una ANN clásica o también llamada **Red Neuronal Densamente Conectada** (ya que cada neurona conecta con todas las de la siguiente capa) nos encontramos en que en esta arquitectura, generalmente, el número de neuronas por capa se va reduciendo hasta llegar a la capa de salida que debería ser normalmente un número (si estamos en un problema regresión), un dato binario (si es un problema de clasificación).
-
-
 
 Si pensamos en una estructura básica de AE en la que tenemos una capa de entrada, una capa oculta y una capa de salida, ésta sería su representación:
 
@@ -24,7 +16,7 @@ Si pensamos en una estructura básica de AE en la que tenemos una capa de entrad
 
 Donde los valores de son los datos de entrada y los datos son la reconstrucción de los mismos después de pasar por la capa oculta que tiene sólo dos dimensiones. El objetivo del entrenamiento de un AE será que estos valores de sean lo más parecidos posibles a los .
 
-Según (Charte et al. 2018) los AE se puden clasificar según el **tipo de arquitectura de red** en:
+Según [@Charte_2018] los AE se pueden clasificar según el **tipo de arquitectura de red** en:
 
 -   Incompleto simple
 
@@ -52,11 +44,11 @@ Si un AE trata de reproducir los datos de entrada mediante un encoder y decoder,
 
 Ya hemos comentado que la red neuronal de un AE es simétrica y está formada por un **encoder** y un **decoder**, además cuando trabajamos con los AE que son incompletos, se está produciendo una **reducción** del **tamaño** de los datos en la fase de codificación y de nuevo una regeneración a partir de esos datos más pequeños al original. Ya tenemos uno de los conceptos más importantes de los AE que es la reducción de dimensiones de los datos de entrada. Estas nuevas variables que se generan una vez pasado el encoder se les suele llamar el **espacio latente**.
 
-Este concepto de reducción de dimensiones en el mundo de la minería de datos lo podemos asimiliar rápidamente a técnicas como el **Análisis de Componentes Principales (PCA)**, que nos permite trabajar con un número más reducido de dimensiones que las originales. Igualmente, esa reducción de los datos y la capacidad de poder reconstruir el original podemos asociarlo al concepto de **compresión de datos**, de forma que con el encoder podemos comprimir los datos y con el decoder los podemos descomprimir. En este caso habría que tener en cuenta que sería una técnica de compresión de datos con pérdida de información (JPG también es un formato de compresión con pérdida de compresión). Es decir, con los datos codificados y el AE (pesos de la red neuronal), seríamos capaces de volver a regenerar los datos originales.
+Este concepto de reducción de dimensiones en el mundo de la minería de datos lo podemos asimilar rápidamente a técnicas como el **Análisis de Componentes Principales (PCA)**, que nos permite trabajar con un número más reducido de dimensiones que las originales. Igualmente, esa reducción de los datos y la capacidad de poder reconstruir el original podemos asociarlo al concepto de **compresión de datos**, de forma que con el encoder podemos comprimir los datos y con el decoder los podemos descomprimir. En este caso habría que tener en cuenta que sería una técnica de compresión de datos con pérdida de información (JPG también es un formato de compresión con pérdida de compresión). Es decir, con los datos codificados y el AE (pesos de la red neuronal), seríamos capaces de volver a regenerar los datos originales.
 
 Otra de las ideas alrededor de los AE es que, si nosotros tenemos un conjunto de **datos de la misma naturaleza** y los entrenamos con nuestro AE, somos capaces de construir una red neuronal (pesos en la red neuronal) que es capaz de reproducir esos datos a través del AE. Que ocurre si nosotros metemos un dato que no era de la misma naturaleza que los que entrenaron el AE, lo que tendremos entonces es que al recrear los datos originales no va a ser posible que se parezca a los datos de entrada. De forma que el error que vamos a tener va a ser mucho mayor por no ser datos de la misma naturaleza. Esto nos puede llevar a construir un AE que permita detectar anomalías, es decir, que seamos capaces de detectar cuando un dato es una anomalía porque realmente el AE no consigue tener un error lo bastante pequeño.
 
-Según lo visto de forma intuitiva vamos a tener el **encoder** $f(X)$ que será el encargado de codificar los datos de entrada y luego tendremos el **decoder** $g(H)$ que será el encargado de realizar la decodificación y conseguir acercarnos al dato original . Es decir intentamos conseguir $g(f(X))=\hat{Y} \approx X$ . Si suponemos un **Simple Autoencoder** en el que tenemos una única capa oculta, con una función de activación intermedia y una función de activación de salida y los parámetros y represetan los parámetros de la red neuronal en cada capa, tendríamos la siguiente expresión:
+Según lo visto de forma intuitiva vamos a tener el **encoder** $f(X)$ que será el encargado de codificar los datos de entrada y luego tendremos el **decoder** $g(H)$ que será el encargado de realizar la decodificación y conseguir acercarnos al dato original . Es decir intentamos conseguir $g(f(X))=\hat{Y} \approx X$ . Si suponemos un **Simple Autoencoder** en el que tenemos una única capa oculta, con una función de activación intermedia y una función de activación de salida y los parámetros y representan los parámetros de la red neuronal en cada capa, tendríamos la siguiente expresión:
 
 $$
 \begin{aligned}
@@ -79,11 +71,11 @@ En la idea intuitiva de los AE ya hemos visto claro que se pueden usar para la r
 
 Muchas veces este tipo de trabajo se hace mediante el PCA (Análisis de Componente Principales, por sus siglas en inglés), sabiendo que lo que se realiza es una transformación lineal de los datos, ya que conseguimos unas nuevas variables que son una combinación lineal de las mismas. En el caso de los AE conseguimos mediante las funciones de activación no lineales (simgmoide, ReLu, tanh, etc) combinaciones no lineales de las variables originales para reducir las dimensiones. También existen versiones de PCA no lineales llamadas Kernel PCA que mediante las técnicas de kernel son capaces de construir relaciones no lineales.
 
-En esta línea estamos viendo que cuando el encoder ha actuado, tenemos unos nuevos datos más reducidos y que somos capaces de practicamente volver a reproducir teniendo el decoder. Podríamos pensar en este tipo de técnica para simplemente comprimir información. Hay que tener en cuenta que este tipo de técnicas no se pueden aplicar a cualquier dato que queramos comprimir, ya que debemos haber entrenado al AE con unos datos de entrenamiento que ha sido capaz de obtener ciertos patrones de ellos, y por eso es capaz luego de reproducirlos.
+En esta línea estamos viendo que cuando el encoder ha actuado, tenemos unos nuevos datos más reducidos y que somos capaces de prácticamente volver a reproducir teniendo el decoder. Podríamos pensar en este tipo de técnica para simplemente comprimir información. Hay que tener en cuenta que este tipo de técnicas no se pueden aplicar a cualquier dato que queramos comprimir, ya que debemos haber entrenado al AE con unos datos de entrenamiento que ha sido capaz de obtener ciertos patrones de ellos, y por eso es capaz luego de reproducirlos.
 
 **Búsqueda de imágenes**
 
-Cuando pensamos en un buscador de imágenes nos podemos hacer a la idea que el buscar al igual que con el texto nos va a mostrar entradas que seán imágenes parecidas a la que estamos buscando.
+Cuando pensamos en un buscador de imágenes nos podemos hacer a la idea que el buscar al igual que con el texto nos va a mostrar entradas que sean imágenes parecidas a la que estamos buscando.
 
 Si construimos un autoencoder, el encoder nos va a dar unas variables con información para poder recrear de nuevo la imagen. Lo que parece claro es que si hay muy poca distancia entre estas variables y otras la reconstrucción de la imagen será muy parecida.
 
@@ -98,7 +90,7 @@ Cuando estamos ante un problema de clasificación y tenemos un conjunto de datos
 Cuando estamos en estos entornos tan desbalanceados muchas veces se dice que estamos ante un sistema para detectar **anomalías**. Un AE nos puede ayudar a detectar estas anomalías de la siguiente forma:
 
 -   Tomamos todos los datos de **entrenamiento** de la **clase mayoritaria** (o normales) y construimos un AE para ser capaces de reproducirlos. Al ser todos estos datos de la misma naturaleza conseguiremos entrenar el AE con un error muy pequeño.
--   Ahora tomamos los datos de la **clase** **minoritaria** (o a nomalías) y los pasamos a través del AE obteniendo unos **errores** de **reconstrucción**.
+-   Ahora tomamos los datos de la **clase** **minoritaria** (o anomalías) y los pasamos a través del AE obteniendo unos **errores** de **reconstrucción**.
 -   Definimos el **umbral** de error que nos separará los datos normales de las anomalías, ya que el AE sólo está entrenado con los normales y conseguirá un error más alto con las anomalías al reconstruirlas.
 -   Cogemos los **datos** de test y los vamos pasando por el AE, si el **error** es **menor** del **umbral**, entonces será de la **clase mayoritaria**. Si el error es mayor que el umbral, entonces estaremos ante una anomalía.
 
@@ -120,14 +112,14 @@ Cuando hablamos de modelos generativos, nos referimos a AE que son capaces de ge
 
 **Transformación de datos**
 
-Cuando se trabaja con redes neuronales y en particular con AEs, necesitamos representar los valores de las variables de entrada en forma numérica. En una red neuronal todos los datos son siempre numéricos. Esto significa que todas aquellas variables que sean categóricas necesitamos convertirlas en numéricas. Además es muy conveniente normalizar los datos para poder trabajar con valores entre 0 y 1, que van a ayudar a que sea más fácil que se pueda converger a la solución.
+Cuando se trabaja con redes neuronales y en particular con AEs, necesitamos representar los valores de las variables de entrada en forma numérica. En una red neuronal todos los datos son siempre numéricos. Esto significa que todas aquellas variables que sean categóricas necesitamos convertirlas en numéricas. Además es muy conveniente normalizar los datos para poder trabajar con valores entre 0 y 1 (o estandarizados), que van a ayudar a que sea más fácil que se pueda converger a la solución.
 
 Como ya sabemos normalmente nos encontramos que en una red neuronal las variables de salida son:
 
 -   un número (regresión)
 -   una serie de números (regresión múltiple)
 -   un dato binario (clasificación binaria)
--   un número que representa una categoría (clasifiación múltiple)
+-   un número que representa una categoría (clasificación múltiple)
 
 En el caso de los AE puede que tengamos una gran parte de las veces valores de series de números, ya que necesitamos volver a representar los datos de entrada. Esto significa que tendremos que conseguir en la capa de salida esos datos numéricos que teníamos inicialmente, como si se tuviera una regresión múltiple.
 
@@ -159,7 +151,7 @@ En este caso no hay ninguna recomendación especial para las funciones de costes
 
 **Optimizador**
 
-Se recomienda usar el optimizador **ADAM** (Diederik P. Kingma 2017) que es el que mejores resultados ha dado en las pruebas según (Walia 2017), consiguiendo una convergencia más rápida que con el resto de optimizadores.
+Se recomienda usar el optimizador **ADAM** [@kingma2017adammethodstochasticoptimization] que es el que mejores resultados ha dado en las pruebas según (Walia 2017), consiguiendo una convergencia más rápida que con el resto de optimizadores.
 
 **Función de activación en capas ocultas**
 
@@ -187,42 +179,42 @@ Una vez entendido el funcionamiento de los AE, veamos algunos de los AE que se p
 
 -   Denoising
 
-En la descripción de los tipos de AE vamos a pensar en python y el framework keras con el backend Tensorflow. Todo el código se proporciona aparte. Usaremos como **dataset** a **MINIST**, que contiene 60.000/10.000 (entrenamiento/validación) **imágenes** de los **números del 0 al 9**, escritos a mano. Cada imagen tiene un tamaño de 28x28 = 784 pixels, en **escala de grises**, con lo que para cada pixel tendremos un valor entre **0 y 255** para definir cuál es su intensidad de gris.
+En la descripción de los tipos de AE vamos a pensar en python y el framework keras con el backend Tensorflow. Usaremos como **dataset** a **MINIST**, que contiene 60.000/10.000 (entrenamiento/validación) **imágenes** de los **números del 0 al 9**, escritos a mano. Cada imagen tiene un tamaño de 28x28 = 784 pixels, en **escala de grises**, con lo que para cada pixel tendremos un valor entre **0 y 255** para definir cuál es su intensidad de gris.
 
 **Autoencoder Simple**
 
 Vamos a describir como construir un **Autoencoder Simple** usando una **red neuronal densamente conectada** en lugar de usar una red neuronal convolucional, para que sea más sencillo comprender el ejemplo.
 
-Es decir, vamos a tratar los datos de entrada como si fueran unos datos numéricos que nos da cualquier variable, que queremos reproducir y no vamos a utilizar ninguna de las técnicas asociadas a las redes convolucionales. Hay que recordar que las redes convolucionales permiten mediante un tratamiento de las imágenes (convolución, pooling, etc) conseguir mejores resultados que si lo hiciéramos directamente con redes densamente conectadas.
+Es decir, vamos a tratar los datos de entrada como si fueran unos datos numéricos que nos da cualquier variable, que queremos reproducir y no vamos a utilizar ninguna de las técnicas asociadas a las redes convolucionales. Hay que recordar que las redes convolucionales permiten mediante un tratamiento de las imágenes (convolución, pooling, etc ) conseguir mejores resultados que si lo hiciéramos directamente con redes densamente conectadas.
 
-En este caso tendremos una capa de **entrada** con **784 neuronas** (correspondientes a los pixels de cada imagen), una capa **intermedia** de **32 neuronas**, y una capa de salida de nuevo de las 784 neuronas para poder volver a obtener de nuevo los datos originales.
+En este caso tendremos una capa de **entrada** con **784 neuronas** (correspondientes a los 28x28 pixels de cada imagen), una capa **intermedia** de **32 neuronas**, y una capa de salida de nuevo de las 784 neuronas para poder volver a obtener de nuevo los datos originales.
 
 ``` python
 
 import keras
 from keras import layers
 
-# This is the size of our encoded representations
-encoding_dim = 32  # 32 floats -> compression of factor 24.5, assuming the input is 784 floats
+# Tamaño de salida del Encoder
+encoding_dim = 32  # 32 floats -> tamaño de compresión 24.5, teniendo una entrada de 784
 
-# This is our input image
+# Esta es el input
 input_img = keras.Input(shape=(784,))
-# "encoded" is the encoded representation of the input
+# "encoded" es la representación codificada del input
 encoded = layers.Dense(encoding_dim, activation='relu')(input_img)
-# "decoded" is the lossy reconstruction of the input
+# "decoded" es la representación decodificada del input
 decoded = layers.Dense(784, activation='sigmoid')(encoded)
 
-# This model maps an input to its reconstruction
+# Este modelo mapea una entrada a su reconstrucción
 autoencoder = keras.Model(input_img, decoded)
 
-# This model maps an input to its encoded representation
+# Este modelo mapea una entrada a su representación codificada
 encoder = keras.Model(input_img, encoded)
 
-# This is our encoded (32-dimensional) input
+# Esta es la entrada codificada (tamaño 32)
 encoded_input = keras.Input(shape=(encoding_dim,))
-# Retrieve the last layer of the autoencoder model
+# Cogemos la ultima capa del autoencoder
 decoder_layer = autoencoder.layers[-1]
-# Create the decoder model
+# Creamos el modelo del decoder
 decoder = keras.Model(encoded_input, decoder_layer(encoded_input))
 
 autoencoder.compile(optimizer='adam', loss='binary_crossentropy')
@@ -244,32 +236,32 @@ autoencoder.fit(x_train, x_train,
                 shuffle=True,
                 validation_data=(x_test, x_test))
 
-# Encode and decode some digits
-# Note that we take them from the *test* set
+# Codificamos y decodificamos algunos dígitos
+# Darse cuenta que toamos los datos de test,
+# que no han sido usados en el entrenamiento
 encoded_imgs = encoder.predict(x_test)
 decoded_imgs = decoder.predict(encoded_imgs)
 
-# Use Matplotlib (don't ask)
+# Matplotlib 
 import matplotlib.pyplot as plt
 
-n = 10  # How many digits we will display
+n = 10  # vamos a mostrar 10 dígitos
 plt.figure(figsize=(20, 4))
 for i in range(n):
-    # Display original
+    # Mostramos el original
     ax = plt.subplot(2, n, i + 1)
     plt.imshow(x_test[i].reshape(28, 28))
     plt.gray()
     ax.get_xaxis().set_visible(False)
     ax.get_yaxis().set_visible(False)
 
-    # Display reconstruction
+    # Mostramos la reconstruccion
     ax = plt.subplot(2, n, i + 1 + n)
     plt.imshow(decoded_imgs[i].reshape(28, 28))
     plt.gray()
     ax.get_xaxis().set_visible(False)
     ax.get_yaxis().set_visible(False)
 plt.show()
-
 ```
 
 **Autoencoder Multicapa o profundo**
@@ -283,10 +275,10 @@ En este caso seguimos con redes densamente conectadas y aplicamos varias capas i
 import keras
 from keras import layers
 
-# This is the size of our encoded representations
-encoding_dim = 32  # 32 floats -> compression of factor 24.5, assuming the input is 784 floats
+# Tamaño de salida del Encoder
+encoding_dim = 32  # 32 floats -> tamaño de compresión 24.5, teniendo una entrada de 784
 
-# This is our input image
+# Esta es el input
 input_img = keras.Input(shape=(784,))
 encoded = layers.Dense(128, activation='relu')(input_img)
 encoded = layers.Dense(64, activation='relu')(encoded)
@@ -296,10 +288,8 @@ decoded = layers.Dense(64, activation='relu')(encoded)
 decoded = layers.Dense(128, activation='relu')(decoded)
 decoded = layers.Dense(784, activation='sigmoid')(decoded)
 
-# This model maps an input to its reconstruction
+# TEste modelo mapea una entrada a su reconstrucción
 autoencoder = keras.Model(input_img, decoded)
-
-# This model maps an input to its encoded representation
 
 autoencoder.compile(optimizer='adam', loss='binary_crossentropy')
 
@@ -320,25 +310,27 @@ autoencoder.fit(x_train, x_train,
                 shuffle=True,
                 validation_data=(x_test, x_test))
 
-# Encode and decode some digits
-# Note that we take them from the *test* set
+# Codificamos y decodificamos algunos dígitos
+# Darse cuenta que toamos los datos de test,
+# que no han sido usados en el entrenamiento
 
 decoded_imgs = autoencoder.predict(x_test)
 print(decoded_imgs.shape)
-# Use Matplotlib (don't ask)
+
+# Matplotlib
 import matplotlib.pyplot as plt
 
-n = 10  # How many digits we will display
+n = 10  # vamos a mostrar 10 dígitos
 plt.figure(figsize=(20, 4))
 for i in range(n):
-    # Display original
+    # Mostramos el original
     ax = plt.subplot(2, n, i + 1)
     plt.imshow(x_test[i].reshape(28, 28))
     plt.gray()
     ax.get_xaxis().set_visible(False)
     ax.get_yaxis().set_visible(False)
 
-    # Display reconstruction
+    # Mostramos la reconstruccion
     ax = plt.subplot(2, n, i + 1 + n)
     plt.imshow(decoded_imgs[i].reshape(28, 28))
     plt.gray()
@@ -369,7 +361,7 @@ x = layers.MaxPooling2D((2, 2), padding='same')(x)
 x = layers.Conv2D(8, (3, 3), activation='relu', padding='same')(x)
 encoded = layers.MaxPooling2D((2, 2), padding='same')(x)
 
-# at this point the representation is (4, 4, 8) i.e. 128-dimensional
+# en este putno la representación es (4,4,8) es decir, 128-dimensional
 
 x = layers.Conv2D(8, (3, 3), activation='relu', padding='same')(encoded)
 x = layers.UpSampling2D((2, 2))(x)
@@ -418,12 +410,11 @@ for i in range(1, n + 1):
     ax.get_xaxis().set_visible(False)
     ax.get_yaxis().set_visible(False)
 plt.show()
-
 ```
 
 **Autoencoder Denoising**
 
-Vaamos a usar ahora un autoencoder para hacer limpieza en imagen, es decir, conseguir a partir de una imagen que tiene ruido otra imagen sin ese ruido. Entrenaremos al autoencoder para que limpie "ruido" que hay en la imagen y lo reconstruya sin ello. El ruido lo vamos a generar mediante una distribución normal y modificaremos el valor de los pixels de las imágenes.
+Vamos a usar ahora un autoencoder para hacer limpieza en imagen, es decir, conseguir a partir de una imagen que tiene ruido otra imagen sin ese ruido. Entrenaremos al autoencoder para que limpie "ruido" que hay en la imagen y lo reconstruya sin ello. El ruido lo vamos a generar mediante una distribución normal y modificaremos el valor de los pixels de las imágenes.
 
 Usaremos estas imágenes con ruido para que sea capaz de reconstruir la imagen original sin ruido con el AE. Para realizar este proceso lo que haremos será:
 
@@ -433,7 +424,7 @@ Usaremos estas imágenes con ruido para que sea capaz de reconstruir la imagen o
 
 • Calcular el error de reconstrucción respecto a las imágenes originales
 
-Al estar trabajando con imágenes vamos a partir del Autoencoder de Convolución para poder aplicar el denosing.
+Al estar trabajando con imágenes vamos a partir del Autoencoder de Convolución para poder aplicar el denoising.
 
 ``` python
 import keras
@@ -448,7 +439,7 @@ x = layers.MaxPooling2D((2, 2), padding='same')(x)
 x = layers.Conv2D(8, (3, 3), activation='relu', padding='same')(x)
 encoded = layers.MaxPooling2D((2, 2), padding='same')(x)
 
-# at this point the representation is (4, 4, 8) i.e. 128-dimensional
+# En este punto la representación es (4, 4, 8) es decir, 128-dimensional
 
 x = layers.Conv2D(8, (3, 3), activation='relu', padding='same')(encoded)
 x = layers.UpSampling2D((2, 2))(x)

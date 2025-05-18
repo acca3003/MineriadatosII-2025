@@ -17,16 +17,15 @@ book:
   
   chapters:
     - index.qmd
-    #- borrar.qmd
-    #- capitulo1.qmd # Deep learning
-    #- capitulo2.qmd # Bayes Análisis causal
+    - capitulo1.qmd # Deep learning
+    - capitulo2.qmd # Bayes Análisis causal
     - capitulo3.qmd # Genéticos
-    #- capitulo4.qmd # Lógica Difusa
-    #- references.qmd
+    - capitulo4.qmd # Lógica Difusa
+    - references.qmd
   #appendices:
   #  - anexo1.qmd
 
-#bibliography: references.bib
+bibliography: references.bib
 
 filters:
   - pseudocode
@@ -61,8 +60,8 @@ format:
         </script>
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
   pdf:
-    #cite-method: biblatex
-    #keep-tex: true
+    cite-method: biblatex
+    keep-tex: true
     highlight-style: tango
     code-line-numbers: true
     papersize: a4

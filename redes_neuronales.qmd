@@ -1,23 +1,27 @@
 ## Conceptos básicos de las Redes Neuronales
 
-Vamos a hacer una revisión de las redes neuronales para posteriormente poder abordar los diferentes tipos de redes neuronales que se utilizan en Deep Learning. Algunos de los avances más recientes en varios de los diferentes componentes que forman parte de las redes neuronales están recopilados en (Gu et al. 2017)
+Vamos a hacer una revisión de las redes neuronales para posteriormente poder abordar los diferentes tipos de redes neuronales que se utilizan en Deep Learning. Algunos de los avances más recientes en varios de los diferentes componentes que forman parte de las redes neuronales están recopilados en [@noor2025surveystateoftheartdeeplearning], también se puede consultar el libro **Deep Learning** que es uno de los recopilatorios a nivel teórico más importante [@Goodfellow-et-al-2016].
 
-Las redes neuronales artificiales tienen sus orígenes en el Perceptrón, que fue el modelo creado por Frank Rosenblatt en 1957 y basado en los trabajos que previamente habían realizado Warren McCullon (neurofisiólogo) y Walter Pitts (matemático).
+Las redes neuronales artificiales tienen sus orígenes en el **Perceptrón**, que fue el modelo creado por Frank Rosenblatt en 1957 y basado en los trabajos que previamente habían realizado Warren McCullon (neurofisiólogo) y Walter Pitts (matemático).
 
-El Perceptrón está construido por una neurona artificial cuyas entradas y salida pueden ser datos numéricos, no como pasaba con la neurona de McCulloch y Pitts (eran sólo datos lógicos). Las neuronas pueden tener pesos y además se le aplica una función de activación Sigmoid (a diferencia de la usada anteriormente al Paso binario).
+El **Perceptrón** está construido por **una neurona artificial** cuyas entradas y salida pueden ser datos numéricos, no como pasaba con la neurona de McCulloch y Pitts (eran sólo datos lógicos). Las neuronas pueden tener pesos y además se le aplica una **función de activación Sigmoid** (a diferencia de la usada anteriormente al Paso binario).
 
-En esta neurona nos encontramos que se realizan los siguientes cálculos: $$ z = \sum_{i=1}^{n}w_ix_i+b_i$$ $$\hat{y} = \delta (z)$$ donde representan los datos numéricos de entrada, son los pesos, es el sesgo (bias), es la función de activación y finalmente es el dato de salida.
+![Perceptrón](imagenes/capitulo1/Perceptron.png){fig-alt="Perceptrón"}
 
-El modelo de perceptrón es el más simple, en el que hay una sola capa oculta con una única neurona.
+En esta neurona nos encontramos que se realizan los siguientes cálculos: $$ z = \sum_{i=1}^{n}w_ix_i+b$$ $$\hat{y} = \sigma (z)$$ donde $x_i$ representan los datos numéricos de entrada, $w_i$ son los pesos, $b_i$ es el sesgo (bias), $\delta$ es la función de activación y finalmente $\hat y$ es el dato de salida.
 
-El siguiente paso nos lleva al Perceptrón Multicapa donde ya pasamos a tener más de una capa oculta, y además podemos tener múltiples neuronas en cada capa oculta.
+El modelo de perceptrón es el más simple, en el que hay **una sola capa oculta** con una **única neurona**.
 
-Cuando todas las neuronas de una capa están interconectadas con todas las de la siguiente capa estamos ante una red neuronal densamente conectada. A lo largo de las siguientes secciones nos encontraremos con redes en las que no todas las neuronas de una capa se conectan con todas de la siguiente.
+El siguiente paso nos lleva al **Perceptrón Multicapa** donde ya pasamos a tener más de una capa oculta, y además podemos tener múltiples neuronas en cada capa oculta.
+
+Cuando **todas las neuronas** de una **capa** están **interconectadas** con todas las de la **siguiente** **capa** estamos ante una **red neuronal densamente conectada**. A lo largo de las siguientes secciones nos encontraremos con redes en las que no todas las neuronas de una capa se conectan con todas de la siguiente.
+
+![Perceptrón Multicapa](imagenes/capitulo1/PerceptronMulticapa.png){fig-alt="Perceptrón Multicapa"}
 
 Veamos como describiríamos ahora los resultados de las capas $$
 z_j^{(l)}=\sum_{i=1}^{n_j} w_{i j}^{(l)} a_i^{(l-1)}+b_i^{(l)} \\
 a_j^{(l)}=\delta^{(l)}\left(z_j^{(l)}\right)
-$$ donde $a_i^{(l-1)}$ representan los datos de la neurona $i$ en la capa $l-1$ ( siendo $a_i^0=x_i$ los valores de entrada), $w_{i j}^{(l)}$ son los pesos en la capa $l$, $b_i^{(l)}$ es el sesgo (bias) en la capa $l$, $\delta^{(l)}$ es la función de activación en la capa $l$ (puede que cada capa tenga una función de activación diferente), $n_j$ es el número de neurona de la capa anterior que conectan con la $j$ y finalmente $a_j^{(l)}$ es el dato de salida de la capa $l$. Es decir, en cada capa para calcular el nuevo valor necesitamos usar los valores de la capa anterior.
+$$ donde $a_i^{(l-1)}$ representan los datos de la neurona $i$ en la capa $l-1$ ( siendo $a_i^0=x_i$ los valores de entrada), $w_{i j}^{(l)}$ son los pesos en la capa $l$, $b_i^{(l)}$ es el sesgo (bias) en la capa $l$, $\delta^{(l)}$ es la función de activación en la capa $l$ (puede que cada capa tenga una función de activación diferente), $n_j$ es el número de neuronas de la capa anterior que conectan con la $j$ y finalmente $a_j^{(l)}$ es el dato de salida de la capa $l$. Es decir, en cada capa para calcular el nuevo valor necesitamos usar los valores de la capa anterior.
 
 **Aplicaciones de las Redes Neuronales**
 
@@ -77,15 +81,23 @@ Si los datos de entrada son audios
 
 -   Conversión de audio a texto
 
-A continuación, pasamos a revisar diferentes elementos de las redes neuronales que suelen ser comunes a todos los tipos de redes neuronales.
+A continuación, pasamos a revisar **diferentes elementos** de las **redes neuronales** que suelen ser comunes a todos los tipos de redes neuronales.
 
 ### Datos
 
-Cuando se trabaja con redes neuronales necesitamos representar los valores de las variables de entrada en forma numérica. En una red neuronal todos los datos son siempre numéricos. Esto significa que todas aquellas variables que sean categóricas necesitamos convertirlas en numéricas.
+Básicamente tenemos 2 tipos de datos:
 
-Además, es muy conveniente normalizar los datos para poder trabajar con valores entre 0 y 1, que van a ayudar a que sea más fácil que se pueda converger a la solución. Es importante que los datos seán números en coma flotante, sobre todo si se van a trabajar con GPUs (Graphics Process Units), ya que permitirán hacer un mejor uso de los multiples cores que les permiten operar en coma flotante de forma paralela. Actualmente, hay toda una serie de mejoras en las GPUs que permite aumentar el rendimiento de las redes neuronales como son el uso de operaciones en FP16 (Floating Point de 16 bits en lugar de 32) de forma que pueden hacer dos operaciones de forma simultánea (el formato estándar es FP32) y además con la reducción de memoria (punto muy importante) al meter en los 32 bits 2 datos en lugar de sólo uno. También se han añadido técnicas de Mixed Precision (Narang et al. 2018), los Tensor Cores (para las gráficas de NVIDIA) son otra de las mejoras que se han ido incorporando a la GPUs y que permiten acelerar los procesos tanto de entrenamiento como de predicción con las redes neuronales.
+-   Datos de entrada
 
-El primer objetivo será convertir las variables categóricas en variables numéricas, de forma la red neuronal pueda trabajar con ellas. Para realizar la conversión de categórica a numérica básicamente tenemos dos métodos para realizarlo:
+-   Datos de salida
+
+**Datos de entrada:**
+
+Cuando se trabaja con redes neuronales necesitamos representar los **valores de las variables de entrada** en forma **numérica**. En una red neuronal **todos los datos son siempre numéricos**. Esto significa que todas aquellas **variables** que sean **categóricas** necesitamos **convertirlas** en **numéricas**.
+
+Además, es muy conveniente **normalizar los datos** para poder trabajar con valores entre 0 y 1 (sobre todo si trabajamos con imágenes), también se puede **estandarizar datos** para trabajar con valores de media 0 y desviación 1, que van a ayudar a que sea más fácil que se pueda converger a la solución. Es importante que los datos sean **números** en **coma flotante**, sobre todo si se van a trabajar con **GPUs** (Graphics Process Units), ya que permitirán hacer un mejor uso de los multiples cores que les permiten operar en coma flotante de forma paralela. Actualmente, hay toda una serie de **mejoras** en las **GPUs** que permite aumentar el rendimiento de las redes neuronales como son el uso de **operaciones** en **FP16** (Floating Point de 16 bits en lugar de 32) de forma que pueden hacer dos operaciones de forma simultánea (el formato estándar es FP32) y además con la reducción de memoria (punto muy importante) al meter en los 32 bits 2 datos en lugar de sólo uno. También se han añadido técnicas de **Mixed Precision** [@micikevicius2018mixedprecisiontraining], los **Tensor Cores** (para las gráficas de NVIDIA) son otra de las mejoras que se han ido incorporando a la GPUs y que permiten acelerar los procesos tanto de entrenamiento como de predicción con las redes neuronales.
+
+El primer objetivo será convertir las **variables categóricas** en **variables numéricas**, de forma la red neuronal pueda trabajar con ellas. Para realizar la conversión de categórica a numérica básicamente tenemos dos métodos para realizarlo:
 
 -   Codificación one-hot.
 
@@ -99,26 +111,32 @@ Normalmente se trabaja con codificación one-hot para representar los datos cate
 
 Si nosotros tenemos nuestra muestra de datos que tiene $n$ variables $x=\{x_1,x_2,...,x_n\}$ de forma que $x_{n-2},x_{n-1},x_n$ son variables categóricas que tienen $k,l,m$ número de categorías respectivamente, tendremos finalmente las siguientes variables sólo numéricas: $$ x=\{x_1,x_2,...,x_{(n-2)_1},...,x_{(n-2)_k},x_{(n-1)_1},...,x_{(n-1)_l},x_{n_1},...,x_{n_m}\} $$
 
-De esta forma, se aumentarán el número de variables con las que vamos a trabajar en función de las categorías que tengan las variables categóricas. Normalmente nos encontramos que en una red neuronal las variables de salida son:
+De esta forma, se aumentarán el número de variables con las que vamos a trabajar en función de las categorías que tengan las variables categóricas.
+
+**Datos de Salida:**
+
+Los datos de salida son la representación numérica del resultado de pasar a través de la red neuronal los datos de entrada. Normalmente nos encontramos que en una red neuronal las variables de salida son:
 
 -   un número (regresión)
 -   una serie de números (regresión múltiple)
 -   un dato binario (clasificación binaria)
--   una serie de datos binarios que representa una categoría de varias (clasifiación múltiple)
+-   una serie de datos binarios que representa una categoría de entre varias (clasificación múltiple)
 
 ### Arquitectura de red
 
-Para la construcción de una red neuronal necesitamos definir la arquitectura de esa red. Esta arquitectura, si estamos pensando en una red neuronal densamente conectada, estará definida por la cantidad de capas ocultas y el número de neuronas que tenemos en cada capa. Más adelante veremos que dependiendo del tipo de red neuronal podrá haber otro tipo de elementos en estas capas.
+Para la construcción de una red neuronal necesitamos definir la arquitectura de esa red. Esta arquitectura, si estamos pensando en una red neuronal densamente conectada, estará definida por la cantidad de **capas ocultas** y el **número de neuronas** que tenemos en cada capa. También se podrán tener capas que sus neuronas no conectan con todas las de la capa anterior.
+
+Más adelante veremos que dependiendo del tipo de red neuronal podrá haber otro tipo de elementos en estas capas.
 
 ### Función de coste y pérdida
 
-Otro de los elementos clave que tenemos que tener en cuenta a la hora de usar nuestra red neuronal son las **funciones de pérdida y funciones de coste (objetivo)**.
+Otro de los elementos clave que tenemos que tener en cuenta a la hora de usar nuestra red neuronal son las **funciones de pérdida y funciones de coste (objetivo)** ver [@elharrouss2025lossfunctionsdeeplearning].
 
 **La función de pérdida** va a ser la función que nos dice cómo de diferente es el resultado del dato que nosotros queríamos conseguir respecto al dato original. Normalmente se suelen usar diferentes tipos de funciones de pérdida en función del tipo de resultado con el que se vaya a trabajar.
 
-**La función de coste** es la función que vamos a tener que **optimizar** para conseguir el mínimo valor posible, y que recoge el valor de la función de pérdida para toda la muestra.
+**La función de coste** es la función que vamos a tener que **optimizar** para conseguir el mínimo valor posible, y que recoge el valor de la función de pérdida para **toda la muestra**.
 
-Tanto las funciones de pérdida como las funciones de coste, son funciones que devuelven valores de de $\mathbb{R}$..
+Tanto las funciones de pérdida como las funciones de coste, son funciones que devuelven valores de de $\mathbb{R}$.
 
 Si tenemos un problema de **regresión** en el que tenemos que predecir un valor o varios valores numéricos, algunas de las funciones a usar son:
 
@@ -180,31 +198,35 @@ $$
 \mathcal{L}_{\text {hinge }}(\mathrm{y}, \hat{y})=\max (0,1-\mathrm{y} * \hat{\mathrm{y}})
 $$
 
-Las correspondientes **funciones de coste** que se usarían, estarían asociadas a todas las muestras que se estén entrenando o sus correpondientes batch, así como posibles términos asociados a la regularización para evitar el sobreajuste del entrenamiento. Es decir, la función de pérdida se calcula para cada muestra, y la función de coste es la media de todas las muestras.
+Las correspondientes **funciones de coste** que se usarían, estarían asociadas a todas las muestras que se estén entrenando o sus correspondientes batches, así como posibles términos asociados a la regularización para evitar el sobre-ajuste del entrenamiento. Es decir, la función de pérdida se calcula para cada muestra, y la función de coste es la media de todas las muestras.
 
 Por ejemplo, para el **Error medio cuadrático** $\left(L_2\right)$ tendríamos el siguiente valor: $$
-\mathcal{J}_{\text {MSB }}(y, \hat{y})=\frac{1}{m} \sum_{i=1}^m \mathcal{L}_{\text {MSE }}(y, \hat{y})=\frac{1}{m} \sum_{i=1}^m|| \hat{y}_i-y_i \|^2=\frac{1}{n} \sum_{i=1}^m \sum_{i=1}^n\left(\hat{y}_{j i}-y_{j i}\right)^2
+\mathcal{J}_{\text {MSE }}(y, \hat{y})=\frac{1}{m} \sum_{i=1}^m \mathcal{L}_{\text {MSE }}(y, \hat{y})=\frac{1}{m} \sum_{i=1}^m|| \hat{y}_i-y_i \|^2=\frac{1}{n} \sum_{i=1}^m \sum_{i=1}^n\left(\hat{y}_{j i}-y_{j i}\right)^2
 $$
 
 ### Optimizador
 
-El **Descenso del gradiente** es la versión más básica de los algoritmos que permiten el aprendizaje en la red neuronal haciendo el proceso de **backpropagation** (propagación hacia atrás). A continuación veremos una breve explicación del algoritmo así como algunas variantes del mismo recogidas en (Ruder 2017).
+El **Optimizador** es el **algoritmo** encargado de **minimizar la función de coste**, de forma que consigamos minimizar el error de los datos que devuelve nuestra red neuronal, respecto a los datos que tiene la muestra. Para entender los principales optimizadores de Primer y Segundo Orden ver [@kashyap2023surveydeeplearningoptimizers].
 
-Recordamos que el descenso del gradiente nos permitirá actualizar los parámetros de la red neuronal cada vez que demos una pasada hacia delante con todos los datos de entrada, volviendo con una pasada hacia atrás.
+Hay que tener en cuenta que el problema de optimización de la función de coste por la naturaleza es un **Problema No Convexo** debido a la no linealidad de las funciones de activación y al producto de los valores de cada capa con la capa anterior. Esto supone un gran problema a la hora de optimizar la función de coste, ya que nos vamos a encontrar que este problema **no** tiene un **mínimo global**. De forma que los algoritmos que usaremos, que si tienen mínimos globales cuando estamos ante **Problemas Convexos**, van a ser muy dependientes de las condiciones iniciales (inicialización de pesos), con lo cual no van a ser un algoritmo heurístico sino que podríamos decir que es aleatorio. Para el estudio de la **Optimización Convexa** ver [@Boyd_Vandenberghe_2004]
 
-$$\mathrm{w}_{\mathrm{t}}=\mathrm{w}_{\mathrm{t}-1}-\alpha \nabla_{\mathrm{w}} \mathcal{J}(\mathrm{w})$$
+El **Descenso del gradiente** es la versión más básica de los algoritmos que permiten el aprendizaje en la red neuronal haciendo el proceso de **backpropagation** (propagación hacia atrás) para corregir el error y acercarnos a nuestro mínimo.
 
-donde $\mathcal{J}$ es la **función de coste**, $\alpha$ es el parámetro de **ratio de aprendizaje** que permite definir como de grandes se quiere que sean los pasos en el aprendizaje.
+Recordamos que el descenso del gradiente nos permitirá actualizar los parámetros de la red neuronal cada vez que demos una pasada hacia delante (**forwardpropagation**) con todos los datos de entrada, volviendo con una pasada hacia atrás (**backpropagation**) haciendo uso de la **regla de la cadena** para encontrar las derivadas en cada capa..
 
-Cuando lo que hacemos es actualizar los parámetros para cada pasada hacia delante de una sola muestra, estaremos ante lo que llamamos **Stochastic Gradient** Descent (SGD). En este proceso convergerá en menos iteraciones, aunque puede tener alta varianza en los parámetros.
+$$\mathrm{W}_{\mathrm{t}}=\mathrm{W}_{\mathrm{t}-1}-\alpha \nabla_{\mathrm{W_{t-1}}} \mathcal{J}(\mathrm{W_{t-1}})$$
 
-$$\mathrm{W}_{\mathrm{t}}=\mathrm{w}_{\mathrm{t}-1}-\alpha \nabla_{\mathrm{w}} \mathcal{J}(\mathrm{w}, x(i),y(i))$$
+donde $\mathcal{J}$ es la **función de coste**, $\alpha$ es el parámetro de **ratio de aprendizaje** que permite definir como de grandes se quiere que sean los pasos en el aprendizaje, $\nabla_{W_{t-1}}$ es el **gradiente** respecto a los pesos, y $\mathcal{J}$ es la **función de coste**.
+
+Cuando lo que hacemos es **actualizar** los parámetros para **cada pasada** hacia delante de **una sola muestra**, estaremos ante lo que llamamos **Stochastic Gradient** **Descent** **(SGD)**. En este proceso convergerá en menos iteraciones, aunque puede tener alta varianza en los parámetros.
+
+$$\mathrm{W}_{\mathrm{t}}=\mathrm{W}_{\mathrm{t}-1}-\alpha \nabla_{\mathrm{W_{t-1}}} \mathcal{J}(\mathrm{W_{t-1}}, x(i),y(i))$$
 
 donde $x(i)$ e $y(i)$ son los valores en la pasada de la muestra $i$.
 
 Podemos buscar un punto intermedio que sería cuando trabajamos por lotes y cogemos un bloque de datos de la muestra, les aplicamos la pasada hacia delante y aprendemos los parámetros para ese bloque. En este caso lo llamaremos **Mini-batch Gradient Descent**
 
-$$\mathrm{W}_{\mathrm{t}}=\mathrm{w}_{\mathrm{t}-1}-\alpha \nabla_{\mathrm{w}} \mathcal{J}(\mathrm{w}, \mathrm{B}(\mathrm{i}))$$
+$$\mathrm{W}_{\mathrm{t}}=\mathrm{W}_{\mathrm{t}-1}-\alpha \nabla_{\mathrm{W_{t-1}}} \mathcal{J}(\mathrm{W_{t-1}}, \mathrm{B}(\mathrm{i}))$$
 
 donde $\mathrm{B}(\mathrm{i})$ son los valores de ese batch .
 
@@ -212,29 +234,29 @@ En general a estos métodos nos referiremos a ellos como **SGD**.
 
 Sobre este algoritmo base se han hecho ciertas mejoras como:
 
-**Learning rate decay** Podemos definir un valor de decenso del ratio de aprendizaje, de forma que normalmente al inicio de las iteraciones de la red neuronal los pasos serán más grandes, pero conforme nos acercamos a la solución optima deberemos dar pasos más pequeños para ajustarnos mejor.
+**Learning rate decay** Podemos definir un valor de descenso del ratio de aprendizaje, de forma que normalmente al inicio de las iteraciones de la red neuronal los pasos serán más grandes, pero conforme nos acercamos a la solución optima deberemos dar pasos más pequeños para ajustarnos mejor.
 
-$$\mathrm{W}_{\mathrm{t}}=\mathrm{w}_{\mathrm{t}-1}-\alpha_{\mathrm{t}} \nabla_{\mathrm{w}} \mathcal{J}\left(\mathrm{w}_{\mathrm{t}-1}\right)$$
+$$\mathrm{W}_{\mathrm{t}}=\mathrm{W}_{\mathrm{t}-1}-\alpha_{\mathrm{t}} \nabla_{\mathrm{W_{t-1}}} \mathcal{J}\left(\mathrm{W}_{\mathrm{t}-1}\right)$$
 
 donde $\alpha _t$ ahora se irá reduciendo en función del valor del **decay**.
 
 **Momentum** El **momentum** se introdujo para suavizar la convergencia y reducir la alta varianza de SGD.
 
-$$ V_ {t}  =  \gamma   v_ {t-1}  +  \alpha  V_ {w} J(  w_ {t-1}  ,x,y)$$ $$ W_ {t} =  w_ {t-1}  -  v_ {1} $$
+$$ V_ {t}  =  \gamma   V_ {t-1}  +  \alpha  V_ {t-1} J(  W_ {t-1}  ,x,y)$$ $$ W_ {t} =  W_ {t-1}  -  V_ {t} $$
 
 donde $v_t$ es lo que se llama el **vector velocidad** con la dirección correcta.
 
 **NAG (Nesterov Accelerated Gradient)** Ahora daremos un paso más con el NAG, calculando la función de coste junto con el vector velocidad.
 
-$$ V_ {t}  =  \gamma   v_ {t-1}  +  \alpha   V_ {w}  J(  w_ {t-1}  -  \gamma   v_ {t-1}  ,x,y) $$ $$ W_ {t}  =  w_ {t-1}  -  v_ {t}  $$
+$$ V_ {t}  =  \gamma   V_ {t-1}  +  \alpha   V_ {t-1}  J(  V_ {t-1}  -  \gamma   V_ {t-1}  ,x,y) $$ $$ W_ {t}  =  W_ {t-1}  -  V_ {t}  $$
 
-donde ahora vemos que la función de coste se calcula usando los parámetros de $w_t$ sumado a $\gamma   v_ {t-1}$
+donde ahora vemos que la función de coste se calcula usando los parámetros de $W_t$ sumado a $\gamma   V_ {t-1}$
 
 Veamos algunos algoritmos de optimización más que, aunque provienen del SGD, se consideran independientes a la hora de usarlos y no como parámetros extras del SGD.
 
 **Adagrad (Adaptive Gradient)** Esta variante del algoritmo lo que hace es adaptar el ratio de aprendizaje para cada uno de los pesos en lugar de que sea global para todos.
 
-$$ W_ {t,i}  =  w_ {t-1,i}  -  \frac {\alpha }{\sqrt {G_ {t-1,i,j}+\epsilon }}   \nabla_ {w_{t-1}}  J(  w_ {t-1,i} ,x,y) $$
+$$ W_ {t,i}  =  W_ {t-1,i}  -  \frac {\alpha }{\sqrt {G_ {t-1,i,j}+\epsilon }}   \nabla_ {W_{t-1}}  J(  W_ {t-1,i} ,x,y) $$
 
 donde tenemos que $G_t \in R^{dxd}$\$es una matriz diagonal donde cada elemento es la suma de los cuadrados de los gradientes en el paso $t-1$ , y es un término de suavizado para evitar divisiones por 0.
 
@@ -247,7 +269,7 @@ $$
 y luego ya pasaremos a usar este valor en la actualización
 
 $$
-w_{t, i}=w_{t-1, i}-\frac{\alpha}{\sqrt{E\left[ g^2\right]_{t-1}+\epsilon}} \nabla_{w_{t-1}} \mathcal{J}\left(w_{t-1, i}, x, y\right)
+w_{t, i}=w_{t-1, i}-\frac{\alpha}{\sqrt{E\left[ g^2\right]_{t-1}+\epsilon}} \nabla_{W_{t-1}} \mathcal{J}\left(w_{t-1, i}, x, y\right)
 $$
 
 **AdaDelta**
@@ -255,7 +277,7 @@ $$
 Aunque se desarrollaron de forma simultánea el AdaDelta y el RMSProp son muy parecidos en su primer paso incial, llegando el de AdaDelta un poco más lejos en su desarrollo.
 
 $$
-w_{t, i}=w_{t-1, i}-\frac{\alpha}{\sqrt{E\left[ g^2\right]_{t-1}+\epsilon}} \nabla_{w_{t-1}} \mathcal{J}\left(w_{t-1, i}, x, y\right)
+w_{t, i}=w_{t-1, i}-\frac{\alpha}{\sqrt{E\left[ g^2\right]_{t-1}+\epsilon}} \nabla_{W_{t-1}} \mathcal{J}\left(w_{t-1, i}, x, y\right)
 $$
 
 y luego ya pasaremos a usar este valor en la actualización
@@ -298,21 +320,33 @@ $$
 
 ### Función de activación
 
-Las funciones de activación dentro de una red neuronal son uno de los elementos clave en el diseño de la misma. Cada tipo de función de activación podrá ayudar a la convergencia de forma más o menos rápida en función del tipo de problema que se plantee. En una red neuronal las funciones de activación en las capas ocultas van a conseguir establecer las restricciones **no lineales** al pasar de una capa a la siguiente, normalmente se evita usar la función de activación lineal en las capas intermedias ya que queremos conseguir transformaciones no lineales.
+Las funciones de activación dentro de una red neuronal son uno de los elementos clave en el diseño de la misma. Cada tipo de función de activación podrá ayudar a la convergencia de forma más o menos rápida en función del tipo de problema que se plantee. En una red neuronal las funciones de activación en las capas ocultas van a conseguir establecer las restricciones **no lineales** al pasar de una capa a la siguiente, normalmente se evita usar la función de activación lineal en las capas intermedias ya que queremos conseguir transformaciones no lineales. Para ver más información [@dubey2022activationfunctionsdeeplearning].
 
-A continuación, exponemos las principales funciones de activación en las capas ocultas:
+A continuación, exponemos las principales **funciones de activación en las** **capas ocultas**:
+
+XXX
+
+Gráfico de las funciones de activación
+
+XXX
 
 -   **Paso binario** (Usado por los primeros modelos de neuronas)
 
 $F(x)= \begin{cases}0 & \text { for } x \leq 0 \\ x & \text { for } x>0\end{cases}$
 
+![Paso Binario](imagenes/capitulo1/SaltoBinario.png){fig-alt="Paso Binario"}
+
 -   **Identidad**
 
 $F(x)=x$
 
--   **Sigmoid (Logística)**
+![Lineal](imagenes/capitulo1/Lineal.png){fig-alt="Lineal"}
+
+-   **Sigmoide (Logística)**
 
 $F(x)=\frac{1}{1+e^{-x}}$
+
+![Sigmoide](imagenes/capitulo1/Sigmoide.png){fig-alt="Sigmoide"}
 
 -   **Tangente Hiperbólica (Tanh)**
 
@@ -322,7 +356,11 @@ $F(x)=\tanh (x)=\frac{\left(e^x-e^{-x}\right)}{\left(e^x+e^{-x}\right)}$
 
 $F\left(x_i\right)=\frac{e^{x_i}}{\sum_{j=0}^k e^{x_j}}$
 
--   **ReLu ( Rectified Linear Unit)** $\begin{aligned} & F(x)=\max (0, x) \\ & f(x)= \begin{cases}0 & \text { for } x \leq 0 \\ x & \text { for } x>0\end{cases} \end{aligned}$
+![SoftMax](imagenes/capitulo1/SoftMax.png)
+
+-   **ReLu ( Rectified Linear Unit)** $\begin{aligned} & F(x)=\max (0, x) \text{ o de la forma}\\ & F(x)= \begin{cases}0 & \text { for } x \leq 0 \\ x & \text { for } x>0\end{cases} \end{aligned}$
+
+    [![ReLU](imagenes/capitulo1/Relu.png)](ReLU)
 
 -   **LReLU (Leaky Rectified Linear Unit)** $F(\alpha, x)= \begin{cases}\alpha x & \text { for } x<0 \\ x & \text { for } x \geq 0\end{cases}$
 
@@ -330,13 +368,15 @@ $F\left(x_i\right)=\frac{e^{x_i}}{\sum_{j=0}^k e^{x_j}}$
 
 -   **RReLU (Randomized Rectified Linear Unit)** $F(\alpha, x)= \begin{cases}\alpha x & \text { for } x<0 \\ x & \text { for } x \geq 0\end{cases}$
 
-\*La diferencia entre LReLu, PReLu y RRLeLu es que en LReLu el parámetro es uno que se asigna fijo, en el caso de PReLu el parámetro también se aprende durante el entrenamiento y finalmente en RReLu es un parámetro con valores entre 0 y 1, que se obtiene de un muestreo en una distribución normal.
+    [![LRelu](imagenes/capitulo1/LRelu.png)](LRelu)
 
-Se puede profundizar en este grupo de funciones de activación en (Xu et al. 2015)
+    \*La diferencia entre LReLu, PReLu y RRLeLu es que en LReLu el parámetro es uno que se asigna fijo, en el caso de PReLu el parámetro también se aprende durante el entrenamiento y finalmente en RReLu es un parámetro con valores entre 0 y 1, que se obtiene de un muestreo en una distribución normal.
 
--   ELU (Exponential Linear Unit) $F(\alpha, x)= \begin{cases}\alpha\left(e^{x-1}\right) & \text { for } x<0 \\ x & \text { for } x \geq 0\end{cases}$
+<!-- -->
 
-![Funciones ReLU](imagenes/capitulo1/funciones_activacion.png){#fig-funciones_activacion}
+-   **ELU (Exponential Linear Unit)** $F(\alpha, x)= \begin{cases}\alpha\left(e^{x-1}\right) & \text { for } x<0 \\ x & \text { for } x \geq 0\end{cases}$
+
+![ELu](imagenes/capitulo1/Elu.png){fig-alt="ELu"}
 
 **Función de activación en salida**
 
@@ -352,7 +392,7 @@ En la capa de salida tenemos que tener en cuenta cual es el tipo de datos final 
 
 ### Regularización
 
-Las técnicas de regularización nos permiten conseguir mejorar los problemas que tengamos por sobreajuste en el entrenamiento de nuestra red neuronal.
+Las técnicas de regularización nos permiten conseguir mejorar los problemas que tengamos por sobreajuste en el entrenamiento de nuestra red neuronal. Para ver más información sobre regularización [@kukacka2017regularizationdeeplearningtaxonomy].
 
 A continuación, vemos algunas de las técnicas de regularización existentes en la actualidad:
 
@@ -370,17 +410,17 @@ Para los casos más habituales tendríamos la norma $\mathbf{L 1}$ y $\mathbf{L 
 \end{aligned}
 $$
 
-### Dropout
+**Dropout**
 
 Una de las técnicas de regularización que más se están usando actualmente es la llamada **Dropout**, su proceso es muy sencillo y consiste en que en cada iteración de forma aleatoria se dejan de usar un porcentaje de las neuronas de esa capa, de esta forma es más difícil conseguir un sobreajuste porque las neuronas no son capaces de memorizar parte de los datos de entrada.
 
-### Dropconnect
+**Dropconnect**
 
 El Dropconnect es otra técnica que va un poco más allá del concepto de Dropout y en lugar de usar en cada capa de forma aleatoria una serie de neuronas, lo que se hace es que de forma aleatoria se ponen los pesos de la capa a cero. Es decir, lo que hacemos es que hay ciertos enlaces de alguna neurona de entrada con alguna de salida que no se activan.
 
 ### Inicialización de pesos
 
-Cuando empieza el entrenamiento de una red neuronal y tiene que realizar la primera pasada hacia delante de los datos, necesitamos que la red neuronal ya tenga asignados algún valor a los pesos.
+Cuando empieza el entrenamiento de una red neuronal y tiene que realizar la primera pasada hacia delante de los datos, necesitamos que la red neuronal ya tenga asignados algún valor a los pesos. Este paso puede resultar importante ya que el valor inicial de los valores de la función que vamos a optimizar guiarán al algoritmo hasta la convergencia.
 
 Se pueden hacer inicializaciones del tipo:
 
@@ -402,11 +442,11 @@ Se pueden hacer inicializaciones del tipo:
 
 Hemos comentado que cuando entrenamos una red neuronal los datos de entrada deben ser todos de tipo numérico y además los normalizamos para tener valores "cercanos a cero", teniendo una media de 0 y varianza de 1, consiguiendo uniformizar todas las variables y conseguir que la red pueda converger más fácilmente.
 
-Cuando los datos entran a la red neuronal y se comienza a operar con ellos, se convierten en nuevos valores que han perdido esa propiedad de normalización. Lo que hacemos con la normalización por lotes (batch normalization) (Ioffe and Szegedy 2015) es que añadimos un paso extra para normalizar las salidas de las funciones de activación. Lo normal es que se aplicara la normalización con la media y la varianza de todo el bloque de entrenamiento en ese paso, pero normalmente estaremos trabajando por lotes y se calculará la media y varianza con ese lote de datos.
+Cuando los datos entran a la red neuronal y se comienza a operar con ellos, se convierten en nuevos valores que han perdido esa propiedad de normalización. Lo que hacemos con la **normalización por lotes** (batch normalization), ver \@[@ioffe2015batchnormalizationacceleratingdeep], es que añadimos un paso extra para normalizar las salidas de las funciones de activación. Lo normal es que se aplicara la normalización con la media y la varianza de todo el bloque de entrenamiento en ese paso, pero normalmente estaremos trabajando por lotes y se calculará la media y varianza con ese lote de datos.
 
 ### Ejemplo de Red Neuronal con Keras
 
-```python
+``` python
 
 # Importamos las librerías de keras/tensorflow
 from tensorflow import keras
@@ -421,7 +461,7 @@ from tensorflow.keras.datasets import boston_housing
 train_data.shape
 test_data.shape
 
-# Realizamos la "Normalización" restando la media y dividiendo por la desviación típica
+# Realizamos la "Standarización" restando la media y dividiendo por la desviación típica
 # Ahora tendremos valores (-x,x) alredor de 0, pero en general pequeños
 mean = train_data.mean(axis=0)
 train_data -= mean
